@@ -150,6 +150,13 @@
     padding-left: 0.5rem;
   }
 
+  @media (max-width: 1024px){
+    .formcontato__input{
+      width: 30rem;
+    }
+  }
+  
+  
   @media (max-width: 768px){
     .formcontato--esquerda{
         display: none;

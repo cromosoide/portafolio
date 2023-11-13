@@ -156,10 +156,11 @@ nav{
         display: flex;
         justify-content: space-evenly;
         box-sizing: content-box;
-        height: 600px;
+        height: fit-content;
         padding-left: 100px;
         background-color: #F5F5F5;
     }
+
     .perfil-container{
         right: 50px;   
     }
@@ -178,15 +179,19 @@ nav{
         display: flex;
         background-color: #EAF2FD;
         width: 100%;
-        height: 480px;
+        height: fit-content;
     }
     .seccion-sobremi{
         padding-left: 100px;
         padding-right: 90px;
+        padding-bottom: 70px;
     }
 }
 
 @media (max-width: 768px){ 
+    .enlaces-container a{
+        font-size: 12px;
+    }
     .enlaces-container{
         left: 30px; 
     }
@@ -298,7 +303,7 @@ nav{
         display: none;
     }
     .enlaces-container a:nth-child(6){
-        padding-left: 120px;
+        padding-left: 80px;
         padding-top: 2px;
     }
 
@@ -352,9 +357,9 @@ nav{
         padding: 15px;
     }
     .mi-logo{
+        display: none;
         position: absolute;
         left: 10px;
-        display: grid;
         justify-content: space-between;
         box-sizing: border-box;
     }
@@ -400,8 +405,10 @@ nav{
         display: none;
     }
     .enlaces-container a:nth-child(6){
-        padding-left: 120px;
-        padding-top: 2px;
+        text-align: center;
+        padding: 0;
+        padding-right: 4rem;
+        
     }
 
     .perfil-container{
@@ -420,9 +427,10 @@ nav{
     }
 
     .seccion1-container{
-        height: 780px;
+        height: fit-content;
         padding-left: 30px;
         padding-right: 20px;
+        padding-bottom: 30px;
         background-color: #F5F5F5;
     }
     .seccion-1{
@@ -437,11 +445,13 @@ nav{
         display: flex;
         background-color: #EAF2FD;
         width: 100%;
-        height: 480px;
+        height: fit-content;
+        padding-bottom: 30px;
     }
     .seccion-sobremi{
         padding-left: 30px;
         padding-top: 40px;
+        padding-bottom: 30px;
     }
     .seccion-sobremi p{
         padding-right: 30px;
