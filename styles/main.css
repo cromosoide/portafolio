@@ -837,3 +837,57 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
    MAGNETIC BUTTON EFFECT (applied via JS)
    ============================================ */
 .magnetic { transition: transform 0.3s var(--ease-expo); }
+
+/* ============================================
+   BRANDS SECTION
+   ============================================ */
+.brands {
+  padding: 120px 0;
+  background: var(--light);
+}
+
+.brands .section-header {
+  margin-bottom: 64px;
+}
+
+.brands__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(13, 18, 30, 0.08);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+@media (min-width: 640px)  { .brands__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .brands__grid { grid-template-columns: repeat(6, 1fr); } }
+
+.brands__slot {
+  aspect-ratio: 1;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: background 0.4s var(--ease);
+}
+
+.brands__slot[data-placeholder]::before {
+  content: '';
+  width: 40%;
+  height: 40%;
+  background: rgba(13, 18, 30, 0.06);
+  border-radius: 8px;
+  transition: background 0.4s var(--ease);
+}
+
+.brands__slot:hover { background: var(--white); }
+.brands__slot:hover[data-placeholder]::before { background: rgba(255, 74, 57, 0.12); }
+
+.brands__note {
+  text-align: center;
+  margin-top: 32px;
+  color: var(--gray);
+  font-size: 0.9rem;
+  font-style: italic;
+}
