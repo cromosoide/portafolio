@@ -167,6 +167,10 @@
         { title: 'Lead magnet', text: 'Diagnóstico fiscal gratuito como puerta de entrada. Convierte visitantes en conversaciones calificadas sin pedir compromiso inmediato.' },
         { title: 'Funnels y plan de marketing', text: 'Funnels de captación documentados + plan de contenidos para conversión continua a través de blog y redes.' }
       ],
+      gallery: [
+        { src: 'images/portfolio/praxis.png', caption: 'Home — cuatro pilares fiscales' },
+        { src: 'images/portfolio/praxium-blog.png', caption: 'Blog editorial fiscal' }
+      ],
       url: 'https://praxium.vercel.app/'
     },
     'nebugrama': {
@@ -179,6 +183,10 @@
         { title: 'Construcción de marca propia', text: 'Naming, ADN de marca y brand book completos. Identidad construida desde cero para diferenciarse de agencias tradicionales.' },
         { title: 'Sitio Next.js', text: 'Web premium con servicios, blog editorial y narrativa para founders. SEO técnico optimizado para PyMEs LATAM.' },
         { title: 'Posicionamiento boutique', text: 'Studio of one — branding sin overhead de agencia. Pitch dirigido a marcas que quieren pasar "de invisibles a inolvidables".' }
+      ],
+      gallery: [
+        { src: 'images/portfolio/nebugrama.png', caption: 'Home — La nebulosa hecha diagrama' },
+        { src: 'images/portfolio/nebugrama-servicios.png', caption: 'Página de servicios — identidad de marca' }
       ],
       url: 'https://www.nebugrama.com/'
     },
@@ -194,6 +202,10 @@
         { title: 'Plan de marketing + análisis de mercado', text: 'Estrategia de captación con análisis del competitive landscape, blog de ideas y guías prácticas, y diagnóstico inicial gratuito como CTA principal.' },
         { title: 'Email marketing', text: 'Integración de email automatizado para nurturing de leads que descargan diagnóstico.' }
       ],
+      gallery: [
+        { src: 'images/portfolio/rivenza.png', caption: 'Home — tres pilares legales' },
+        { src: 'images/portfolio/rivenza-tool.png', caption: 'Suite de herramientas: calculadora IMSS, diagnóstico, derechos laborales' }
+      ],
       url: 'https://www.rivenza.com.mx/'
     },
     'acelerarh': {
@@ -208,6 +220,10 @@
         { title: 'Plan de marketing 360° + sales deck', text: 'Plan integral con sales deck B2B para procesos comerciales, benchmark del mercado y estrategia de contenidos por vertical.' },
         { title: 'Posicionamiento premium', text: '"Erradicamos la obsolescencia humana mediante la soberanía profesional absoluta" — copy diferenciador de consultoras tradicionales.' }
       ],
+      gallery: [
+        { src: 'images/portfolio/acelerarh.png', caption: 'Home — soberanía profesional' },
+        { src: 'images/portfolio/acelerarh-tools.png', caption: 'Suite de tres diagnósticos premium gratis' }
+      ],
       url: 'https://acelerarh.vercel.app/'
     },
     'coyotl-can': {
@@ -221,6 +237,10 @@
         { title: 'Sitio web integral', text: 'Multi-sección con catálogo de servicios médicos, perfiles del equipo, testimonios, blog de cuidado animal y agenda de cita. Integración con Instagram.' },
         { title: 'Plan omnicanal + 90 días de contenido', text: 'Estrategia para coordinar redes, blog y consulta. Calendario de contenidos para activar engagement los primeros tres meses post-lanzamiento.' }
       ],
+      gallery: [
+        { src: 'images/portfolio/coyotl-can.png', caption: 'Home — medicina con alma' },
+        { src: 'images/portfolio/coyotl-can-blog.png', caption: 'Blog — contenido de cuidado animal' }
+      ],
       url: 'https://coyotl-can.vercel.app/'
     },
     'poxahuac': {
@@ -233,6 +253,10 @@
         { title: 'Branboard completo', text: 'Sistema de marca documentado: paleta, tipografía, fotografía, voz. Coherencia entre menú impreso, redes y experiencia en sitio.' },
         { title: 'Landing local de captación', text: 'Web con menú, platillos estrella, testimonios, ubicación con maps embed, IG embed y FAQ. Construida para SEO local "pozole Amecameca".' },
         { title: 'Reservas + integración social', text: 'CTA directos a reserva por contacto y feed de Instagram embebido para mostrar experiencia real del lugar.' }
+      ],
+      gallery: [
+        { src: 'images/portfolio/poxahuac.png', caption: 'Hero — el pozole más esponjoso de Amecameca' },
+        { src: 'images/portfolio/poxahuac-page.png', caption: 'Página completa — menú estrella, testimonios y mapa' }
       ],
       url: 'https://poxahuac-web.vercel.app/'
     },
@@ -248,6 +272,10 @@
         { title: 'Arquitectura de servicios + cross-selling', text: 'Servicios documentados con plan de venta cruzada: el cliente que pide arco de globos también recibe propuesta de mesa de dulces e invitaciones.' },
         { title: 'Invitaciones digitales como producto', text: 'Línea de invitaciones digitales desde $199 como producto de entrada — convierte clientes de evento físico en pipeline recurrente.' }
       ],
+      gallery: [
+        { src: 'images/portfolio/creandoando.png', caption: 'Home — tu fiesta perfecta hecha con amor' },
+        { src: 'images/portfolio/creandoando-galeria.png', caption: 'Galería de eventos realizados' }
+      ],
       url: 'https://www.creandoandobysandy.com/'
     },
     'fanmorita': {
@@ -260,6 +288,10 @@
         { title: 'Identidad para creativa', text: 'Logotipo expresivo "Fan_Morita" con onda gestual — refleja el motion craft sin caer en cliché de portfolio de diseñadora.' },
         { title: 'SPA con animaciones', text: 'React + Vite con interacciones cinemáticas, marquee continuo de servicios, transiciones suaves entre proyectos. Diseñada para sentirse como reel animado.' },
         { title: 'Multilenguaje ES/EN', text: 'Selector de idioma para apuntar a clientes locales y prospectos internacionales sin duplicar sitio.' }
+      ],
+      gallery: [
+        { src: 'images/portfolio/fanmorita.png', caption: 'Hero — logotipo gestual + nav' },
+        { src: 'images/portfolio/fanmorita-page.png', caption: 'Marquee continuo de servicios de motion' }
       ],
       url: 'https://www.fanmorita.com/'
     }
@@ -275,6 +307,8 @@
   var projectModalScope = projectModal.querySelector('.project-modal__scope');
   var projectModalHighlights = projectModal.querySelector('.project-modal__highlights');
   var projectModalCta = projectModal.querySelector('.project-modal__cta');
+  var projectModalGallery = projectModal.querySelector('.project-modal__gallery');
+  var projectModalGallerySection = projectModal.querySelector('.project-modal__section--gallery');
   var projectModalContent = projectModal.querySelector('.modal__content');
 
   function openProjectModal(slug) {
@@ -306,6 +340,28 @@
       div.appendChild(p);
       projectModalHighlights.appendChild(div);
     });
+
+    projectModalGallery.innerHTML = '';
+    if (data.gallery && data.gallery.length) {
+      projectModalGallerySection.style.display = '';
+      data.gallery.forEach(function (g) {
+        var fig = document.createElement('figure');
+        fig.className = 'project-modal__gallery-item';
+        var img = document.createElement('img');
+        img.src = g.src;
+        img.alt = data.name + ' — ' + (g.caption || '');
+        img.loading = 'lazy';
+        fig.appendChild(img);
+        if (g.caption) {
+          var cap = document.createElement('figcaption');
+          cap.textContent = g.caption;
+          fig.appendChild(cap);
+        }
+        projectModalGallery.appendChild(fig);
+      });
+    } else {
+      projectModalGallerySection.style.display = 'none';
+    }
 
     projectModalCta.href = data.url;
 
