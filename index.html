@@ -203,6 +203,38 @@
     </div>
   </div>
 
+  <!-- PROJECT MODAL -->
+  <div class="modal modal--project" id="modal-project" aria-hidden="true">
+    <div class="modal__overlay"></div>
+    <div class="modal__panel modal__panel--wide">
+      <button class="modal__close" aria-label="Cerrar modal de proyecto" data-project-close>
+        <span></span><span></span>
+      </button>
+      <div class="modal__content project-modal">
+        <figure class="project-modal__hero">
+          <img src="" alt="" class="project-modal__img" loading="lazy">
+        </figure>
+        <h2 class="modal__title"><span class="project-modal__name"></span></h2>
+        <p class="project-modal__tagline"></p>
+        <p class="project-modal__summary"></p>
+
+        <section class="project-modal__section">
+          <h3 class="project-modal__heading">Capas trabajadas</h3>
+          <ul class="project-modal__scope"></ul>
+        </section>
+
+        <section class="project-modal__section">
+          <h3 class="project-modal__heading">Lo que se hizo</h3>
+          <div class="project-modal__highlights"></div>
+        </section>
+
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn--modal project-modal__cta">
+          <span data-text="Visitar sitio">Visitar sitio →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="#" class="nav__logo" aria-label="Inicio">
@@ -280,7 +312,7 @@
 
     <div class="portfolio__grid">
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://praxium.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://praxium.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="praxium">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/praxis.png" alt="Praxium — Sitio web de consultoría fiscal estratégica para PyMEs" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -293,7 +325,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://www.nebugrama.com/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://www.nebugrama.com/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="nebugrama">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/nebugrama.png" alt="Nebugrama — Agencia de branding y marketing digital en CDMX" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -306,7 +338,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://www.rivenza.com.mx/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://www.rivenza.com.mx/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="rivenza">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/rivenza.png" alt="Rivenza — Firma legal con calculadora interactiva de pensión IMSS" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -319,7 +351,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://acelerarh.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://acelerarh.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="acelerarh">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/acelerarh.png" alt="AceleraRH — Consultoría ejecutiva de Recursos Humanos con suite de herramientas" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -332,7 +364,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://coyotl-can.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://coyotl-can.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="coyotl-can">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/coyotl-can.png" alt="Coyotl Can — Clínica veterinaria integral en Lindavista CDMX" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -345,7 +377,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://poxahuac-web.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://poxahuac-web.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="poxahuac">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/poxahuac.png" alt="Poxahuac — Restaurante de pozole tradicional en Amecameca" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -358,7 +390,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://www.creandoandobysandy.com/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://www.creandoandobysandy.com/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="creandoando">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/creandoando.png" alt="CreandoAndo by Sandy — Party planner en Chimalhuacán Edomex" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
@@ -371,7 +403,7 @@
       </article>
 
       <article class="portfolio__item reveal" data-cursor-text="Ver proyecto">
-        <a href="https://www.fanmorita.com/" target="_blank" rel="noopener noreferrer" class="portfolio__link">
+        <a href="https://www.fanmorita.com/" target="_blank" rel="noopener noreferrer" class="portfolio__link" data-project="fanmorita">
           <div class="portfolio__img parallax-wrap">
             <img src="images/portfolio/fanmorita.png" alt="FanMorita — Portfolio de motion design de Estefany Rodríguez" loading="lazy" width="1920" height="1080" class="parallax-img">
           </div>
