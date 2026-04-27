@@ -771,12 +771,12 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
 .portfolio__grid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 80px;
   padding: 0 24px;
 }
 
 @media (min-width: 769px) {
-  .portfolio__grid { gap: 32px; padding: 0 48px; }
+  .portfolio__grid { gap: 96px; padding: 0 48px; }
 }
 
 .portfolio__item {
@@ -808,7 +808,7 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
 .portfolio__link:hover .parallax-img { transform: scale(1.05); }
 
 .portfolio__info {
-  padding: 32px 24px;
+  padding: 20px 4px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
