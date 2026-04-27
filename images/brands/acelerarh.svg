@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" role="img" aria-label="AceleraRH">
+  <g transform="translate(0, 10) rotate(12 24 24)">
+    <path d="M9 40 L22 8 L26 8 L39 40 L33 40 L29.5 31 L18.5 31 L15 40 Z" fill="#0E1729"/>
+    <rect x="19.5" y="24" width="9" height="4" fill="#06B6D4"/>
+    <circle cx="40" cy="9" r="2.4" fill="#06B6D4"/>
+  </g>
+  <text x="58" y="38" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#0E1729" letter-spacing="-0.5">AceleraRH</text>
+</svg>
