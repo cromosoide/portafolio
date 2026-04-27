@@ -428,7 +428,7 @@
       if (rect.bottom < 0 || rect.top > vh) return;
 
       var progress = (rect.top + rect.height / 2) / (vh + rect.height);
-      var offset = (progress - 0.5) * -60; // Subtle parallax
+      var offset = (progress - 0.5) * -25; // Subtle parallax
       img.style.transform = 'translateY(' + offset + 'px) scale(1.05)';
     });
   }
