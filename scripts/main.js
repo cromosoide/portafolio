@@ -175,14 +175,14 @@
     },
     'nebugrama': {
       name: 'Nebugrama',
-      tagline: 'Mi agencia de branding y marketing digital',
+      tagline: 'Agencia boutique de branding y marketing digital',
       hero: 'images/portfolio/nebugrama.png',
-      summary: 'La marca propia: agencia boutique en CDMX especializada en branding estratégico, identidad visual, marketing digital y diseño web para PyMEs en México y LATAM. Manifiesto: "La nebulosa hecha diagrama".',
-      scope: ['Naming', 'Identidad visual propia', 'Brand book / ADN', 'Diseño y desarrollo web', 'Posicionamiento', 'Blog estratégico'],
+      summary: 'Agencia en CDMX especializada en branding estratégico, identidad visual, marketing digital y diseño web para PyMEs en México y LATAM. Manifiesto: "La nebulosa hecha diagrama".',
+      scope: ['Naming', 'Identidad visual', 'Brand book / ADN', 'Diseño y desarrollo web', 'Posicionamiento', 'Blog estratégico'],
       highlights: [
-        { title: 'Construcción de marca propia', text: 'Naming, ADN de marca y brand book completos. Identidad construida desde cero para diferenciarse de agencias tradicionales.' },
+        { title: 'Construcción de identidad', text: 'Naming, ADN de marca y brand book completos. Identidad construida desde cero para diferenciarse de agencias tradicionales.' },
         { title: 'Sitio Next.js', text: 'Web premium con servicios, blog editorial y narrativa para founders. SEO técnico optimizado para PyMEs LATAM.' },
-        { title: 'Posicionamiento boutique', text: 'Studio of one — branding sin overhead de agencia. Pitch dirigido a marcas que quieren pasar "de invisibles a inolvidables".' }
+        { title: 'Posicionamiento boutique', text: 'Studio sin overhead de agencia tradicional. Pitch dirigido a marcas que quieren pasar de invisibles a inolvidables.' }
       ],
       gallery: [
         { src: 'images/portfolio/nebugrama.png', caption: 'Home — La nebulosa hecha diagrama' },
