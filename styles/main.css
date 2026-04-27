@@ -46,7 +46,7 @@ input, textarea { font: inherit; cursor: none; }
    ============================================ */
 .loader {
   position: fixed;
-  inset: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
   z-index: 9999;
   background: var(--dark);
   display: flex;
@@ -174,7 +174,7 @@ input, textarea { font: inherit; cursor: none; }
    ============================================ */
 .modal {
   position: fixed;
-  inset: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
   z-index: 1000;
   pointer-events: none;
 }
@@ -183,7 +183,7 @@ input, textarea { font: inherit; cursor: none; }
 
 .modal__overlay {
   position: absolute;
-  inset: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
   background: rgba(0,0,0,0.6);
   opacity: 0;
   transition: opacity 0.5s var(--ease);
@@ -568,7 +568,7 @@ input, textarea { font: inherit; cursor: none; }
   .nav__toggle { display: flex; }
   .nav__links {
     position: fixed;
-    inset: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     background: var(--dark);
     flex-direction: column;
     justify-content: center;
@@ -598,7 +598,7 @@ input, textarea { font: inherit; cursor: none; }
 .hero::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0; right: 0; bottom: 0; left: 0;
   background:
     radial-gradient(ellipse at 20% 50%, rgba(255, 74, 57, 0.08) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 50%, rgba(255, 74, 57, 0.05) 0%, transparent 60%);
@@ -886,11 +886,18 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
 
 .about__photo img {
   border-radius: var(--radius);
-  aspect-ratio: 1;
   object-fit: cover;
   width: 100%;
   max-width: 450px;
+  height: auto;
   margin: 0 auto;
+}
+
+@supports (aspect-ratio: 1) {
+  .about__photo img {
+    aspect-ratio: 1;
+    height: auto;
+  }
 }
 
 /* ============================================
@@ -1008,7 +1015,6 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
 @media (min-width: 1024px) { .brands__grid { grid-template-columns: repeat(4, 1fr); } }
 
 .brands__slot {
-  aspect-ratio: 1;
   background: var(--light);
   display: flex;
   align-items: center;
@@ -1018,6 +1024,21 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
   color: inherit;
   text-decoration: none;
   transition: background 0.4s var(--ease), transform 0.4s var(--ease);
+}
+
+/* Aspect-ratio fallback for older Safari iOS (iPhone 7 / iOS <15).
+   The ::before pushes the slot to a 1:1 ratio universally; modern
+   browsers override with aspect-ratio below. */
+.brands__slot::before {
+  content: '';
+  display: block;
+  width: 0;
+  padding-bottom: 100%;
+}
+
+@supports (aspect-ratio: 1) {
+  .brands__slot { aspect-ratio: 1; }
+  .brands__slot::before { display: none; }
 }
 
 .brands__slot img {
@@ -1047,17 +1068,6 @@ body.loaded .hero__scroll { opacity: 1; animation: bounce 2s 1.8s infinite; }
 .brands__slot--invert:hover img {
   filter: grayscale(0%) invert(1);
 }
-
-.brands__slot[data-placeholder]::before {
-  content: '';
-  width: 40%;
-  height: 40%;
-  background: rgba(13, 18, 30, 0.06);
-  border-radius: 8px;
-  transition: background 0.4s var(--ease);
-}
-
-.brands__slot:hover[data-placeholder]::before { background: rgba(255, 74, 57, 0.12); }
 
 .brands__note {
   text-align: center;
