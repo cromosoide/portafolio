@@ -164,14 +164,14 @@
       scope: ['Identidad visual', 'Diseño y desarrollo web', 'Funnels de captación', 'Plan de marketing', 'Estrategia de contenidos', 'SEO técnico'],
       highlights: [
         { title: 'Sitio web premium', text: 'Multi-sección con narrativa B2B: cuatro pilares estratégicos, proceso, equipo, FAQ y blog. Animaciones cinemáticas y scroll suave para transmitir solidez.' },
-        { title: 'Lead magnet', text: 'Diagnóstico fiscal gratuito como puerta de entrada. Convierte visitantes en conversaciones calificadas sin pedir compromiso inmediato.' },
+        { title: 'Suite de 23 herramientas', text: 'Diagnóstico de riesgo fiscal y calculadoras de ISR, IVA, aguinaldo, finiquito y PTU. Cada herramienta capta y posiciona en SEO.' },
         { title: 'Funnels y plan de marketing', text: 'Funnels de captación documentados + plan de contenidos para conversión continua a través de blog y redes.' }
       ],
       gallery: [
         { src: 'images/portfolio/praxis.png', caption: 'Home — cuatro pilares fiscales' },
         { src: 'images/portfolio/praxium-blog.png', caption: 'Blog editorial fiscal' }
       ],
-      url: 'https://praxium.vercel.app/'
+      url: 'https://praxiumconsultores.com/'
     },
     'nebugrama': {
       name: 'Nebugrama',
