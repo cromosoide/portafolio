@@ -27,6 +27,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build con Astro
         uses: withastro/action@v3
+        with:
+          node-version: 22 # Astro 6 requiere Node >=22.12; el default del action es 20.
         # La acción oficial instala dependencias (detecta package-lock.json),
         # corre `astro build` y sube el artefacto de Pages automáticamente.
 
