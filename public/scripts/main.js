@@ -133,11 +133,13 @@
 
   function openModal() {
     modal.setAttribute('aria-hidden', 'false');
+    modal.removeAttribute('inert');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('inert', '');
     document.body.style.overflow = '';
   }
 
@@ -366,12 +368,14 @@
     projectModalCta.href = data.url;
 
     projectModal.setAttribute('aria-hidden', 'false');
+    projectModal.removeAttribute('inert');
     document.body.style.overflow = 'hidden';
     if (projectModalContent) projectModalContent.scrollTop = 0;
   }
 
   function closeProjectModal() {
     projectModal.setAttribute('aria-hidden', 'true');
+    projectModal.setAttribute('inert', '');
     document.body.style.overflow = '';
   }
 

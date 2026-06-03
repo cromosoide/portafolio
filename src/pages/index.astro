@@ -24,6 +24,16 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <link slot="head" rel="stylesheet" href="/styles/main.css" />
+  <noscript slot="head">
+    <style>
+      /* Sin JS: revela el contenido, oculta el loader y restaura el cursor. */
+      #loader { display: none !important; }
+      .cursor { display: none !important; }
+      *, a, button, input, textarea { cursor: auto !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .reveal-mask .line span { transform: none !important; }
+    </style>
+  </noscript>
   <meta slot="head" property="og:image:width" content="512" />
   <meta slot="head" property="og:image:height" content="512" />
   <meta slot="head" property="profile:first_name" content="Santiago" />
@@ -45,7 +55,7 @@ const jsonLd = [
   </div>
 
   <!-- CONTACT MODAL -->
-  <div class="modal" id="modal-contact" aria-hidden="true">
+  <div class="modal" id="modal-contact" aria-hidden="true" inert>
     <div class="modal__overlay"></div>
     <div class="modal__panel">
       <button class="modal__close" aria-label="Cerrar modal de contacto">
@@ -87,7 +97,7 @@ const jsonLd = [
   </div>
 
   <!-- PROJECT MODAL -->
-  <div class="modal modal--project" id="modal-project" aria-hidden="true">
+  <div class="modal modal--project" id="modal-project" aria-hidden="true" inert>
     <div class="modal__overlay"></div>
     <div class="modal__panel modal__panel--wide">
       <button class="modal__close" aria-label="Cerrar modal de proyecto" data-project-close>

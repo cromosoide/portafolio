@@ -1,0 +1,133 @@
+---
+import Content from '../../layouts/Content.astro';
+import { softwareApplicationSchema, howToSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+const url = '/herramientas/generador-de-paleta/';
+const jsonLd = [
+  softwareApplicationSchema({
+    name: 'Generador de paleta desde imagen',
+    description: 'Sube una imagen y extrae una paleta de los colores dominantes, con sus códigos hexadecimales. Procesado local en el navegador.',
+    url,
+  }),
+  howToSchema({
+    name: 'Cómo extraer una paleta de color de una imagen',
+    description: 'Sube una foto y obtén los colores dominantes.',
+    steps: [
+      { name: 'Sube una imagen', text: 'Elige una foto o referencia visual.' },
+      { name: 'Lee la paleta', text: 'La herramienta extrae los colores dominantes con su código hex.' },
+      { name: 'Copia', text: 'Haz clic en un color para copiar su hexadecimal.' },
+    ],
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Herramientas', url: '/herramientas/' },
+    { name: 'Generador de paleta', url },
+  ]),
+];
+---
+<Content
+  title="Generador de paleta de color desde imagen | Santiago Gil"
+  description="Herramienta gratuita: sube una imagen y extrae su paleta de colores dominantes con códigos hex. Sin registro, todo en tu navegador."
+  canonical={url}
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › <span>Generador de paleta</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Herramienta</span>
+    <h1>Generador de paleta desde imagen</h1>
+    <p class="lede">Sube una foto o referencia y extrae sus colores dominantes con su código hex. Útil como punto de partida para una identidad. Corre en tu navegador.</p>
+  </section>
+
+  <section class="container" style="max-width: 760px; padding-bottom: 24px;">
+    <div class="tool-panel">
+      <div class="tool-field">
+        <label for="file">Sube una imagen (PNG, JPG o WebP)</label>
+        <input type="file" id="file" accept="image/png,image/jpeg,image/webp" />
+      </div>
+      <div class="tool-result" id="out" hidden></div>
+      <p style="font-size:14px; color:var(--gray); margin-bottom:0;">La imagen no se sube a ningún servidor; se procesa localmente. Haz clic en un color para copiar su hex.</p>
+    </div>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="prose">
+      <h2>De la paleta al sistema de color</h2>
+      <p>Una paleta extraída es un punto de partida, no una identidad. Un sistema de color define jerarquía, contraste y uso, y se prueba en aplicaciones reales. Sobre eso trabaja un proyecto de <a href="/servicios/branding/">branding</a>.</p>
+    </div>
+    <div class="cta-box">
+      <h3>¿Construyes una identidad?</h3>
+      <p>El color es una pieza. La estrategia y el sistema completo definen cómo se usa.</p>
+      <a href="/blog/que-es-la-identidad-visual-de-una-marca/" class="btn">Leer sobre identidad visual</a>
+    </div>
+  </section>
+
+  <script>
+    const input = document.getElementById('file');
+    const out = document.getElementById('out');
+
+    const toHex = (c) => '#' + [c.r, c.g, c.b].map((x) => x.toString(16).padStart(2, '0')).join('');
+
+    function extract(data) {
+      const buckets = {};
+      for (let i = 0; i < data.length; i += 4) {
+        if (data[i + 3] < 125) continue; // ignora casi-transparentes
+        const r = data[i], g = data[i + 1], b = data[i + 2];
+        const key = (r >> 5) + '-' + (g >> 5) + '-' + (b >> 5);
+        if (!buckets[key]) buckets[key] = { r: 0, g: 0, b: 0, n: 0 };
+        const o = buckets[key];
+        o.r += r; o.g += g; o.b += b; o.n++;
+      }
+      return Object.values(buckets)
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 6)
+        .map((o) => ({ r: Math.round(o.r / o.n), g: Math.round(o.g / o.n), b: Math.round(o.b / o.n) }));
+    }
+
+    input.addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      const img = new Image();
+      const objUrl = URL.createObjectURL(f);
+      img.onload = () => {
+        const max = 120;
+        const r = Math.min(max / img.width, max / img.height, 1);
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.width * r));
+        c.height = Math.max(1, Math.round(img.height * r));
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, c.width, c.height);
+        const colors = extract(ctx.getImageData(0, 0, c.width, c.height).data);
+        URL.revokeObjectURL(objUrl);
+
+        out.hidden = false;
+        out.innerHTML = '<span class="answer-box__label">Paleta extraída</span>';
+        const grid = document.createElement('div');
+        grid.style.cssText = 'display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;';
+        colors.forEach((col) => {
+          const hex = toHex(col);
+          const sw = document.createElement('button');
+          sw.type = 'button';
+          sw.title = 'Clic para copiar ' + hex;
+          sw.style.cssText = 'border:1px solid #ddd; border-radius:10px; padding:0; cursor:pointer; background:#fff; overflow:hidden; width:96px;';
+          sw.innerHTML = '<span style="display:block; height:64px; background:' + hex + ';"></span><span style="display:block; padding:8px 0; font-size:13px; font-family:monospace; color:#14151a;">' + hex + '</span>';
+          sw.addEventListener('click', () => {
+            navigator.clipboard && navigator.clipboard.writeText(hex);
+            const lbl = sw.querySelector('span:last-child');
+            const prev = lbl.textContent; lbl.textContent = '¡copiado!';
+            setTimeout(() => { lbl.textContent = prev; }, 1000);
+          });
+          grid.appendChild(sw);
+        });
+        out.appendChild(grid);
+      };
+      img.onerror = () => {
+        out.hidden = false;
+        out.innerHTML = '<span class="answer-box__label">Error</span><p style="margin:.4em 0 0;">No se pudo leer la imagen.</p>';
+      };
+      img.src = objUrl;
+    });
+  </script>
+</Content>

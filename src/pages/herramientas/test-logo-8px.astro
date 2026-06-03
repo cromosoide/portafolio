@@ -1,0 +1,121 @@
+---
+import Content from '../../layouts/Content.astro';
+import { softwareApplicationSchema, howToSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+const url = '/herramientas/test-logo-8px/';
+const jsonLd = [
+  softwareApplicationSchema({
+    name: 'Test de logo a 8 px',
+    description: 'Sube un logo y compruébalo a tamaños mínimos (8, 16, 24, 32, 48 px) para ver si aguanta como favicon o ícono.',
+    url,
+  }),
+  howToSchema({
+    name: 'Cómo probar un logo a tamaño mínimo',
+    description: 'Sube tu logo y revisa cómo se ve a pocos píxeles.',
+    steps: [
+      { name: 'Sube el logo', text: 'Elige un archivo PNG, SVG o JPG de tu logotipo.' },
+      { name: 'Observa los tamaños', text: 'La herramienta lo dibuja a 8, 16, 24, 32 y 48 px, con una vista ampliada.' },
+      { name: 'Decide', text: 'Si pierde legibilidad a 16 px o menos, conviene una versión simplificada.' },
+    ],
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Herramientas', url: '/herramientas/' },
+    { name: 'Test de logo a 8 px', url },
+  ]),
+];
+---
+<Content
+  title="Test de logo a 8 px — ¿tu logo aguanta? | Santiago Gil"
+  description="Herramienta gratuita: sube tu logo y comprueba si se lee a 8, 16, 24, 32 y 48 px. Todo en tu navegador, sin subir nada a un servidor."
+  canonical={url}
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › <span>Test de logo a 8 px</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Herramienta</span>
+    <h1>Test de logo a 8 px</h1>
+    <p class="lede">Un logo que funciona también tiene que leerse pequeño: favicon, ícono de app, avatar. Súbelo y míralo a tamaños mínimos. Todo corre en tu navegador.</p>
+  </section>
+
+  <section class="container" style="max-width: 760px; padding-bottom: 24px;">
+    <div class="tool-panel">
+      <div class="tool-field">
+        <label for="file">Sube tu logo (PNG, SVG o JPG)</label>
+        <input type="file" id="file" accept="image/png,image/svg+xml,image/jpeg,image/webp" />
+      </div>
+      <div class="tool-result" id="out" hidden></div>
+      <p style="font-size:14px; color:var(--gray); margin-bottom:0;">El archivo no se sube a ningún servidor; se procesa localmente.</p>
+    </div>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="prose">
+      <h2>Cómo leer el resultado</h2>
+      <p>Cada bloque muestra el logo a su tamaño real (8 a 48 px) y una vista ampliada para juzgar el detalle. Si a 16 px las formas se cierran o el texto desaparece, conviene una versión reducida: un isotipo o un símbolo simplificado.</p>
+    </div>
+    <div class="cta-box">
+      <h3>¿Tu logo no aguanta?</h3>
+      <p>Un sistema de identidad incluye versiones para tamaños pequeños. Lo vemos en un proyecto de branding.</p>
+      <a href="/servicios/branding/" class="btn">Ver servicio de branding</a>
+    </div>
+  </section>
+
+  <script>
+    const SIZES = [8, 16, 24, 32, 48];
+    const input = document.getElementById('file');
+    const out = document.getElementById('out');
+
+    input.addEventListener('change', (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) return;
+      const img = new Image();
+      const objUrl = URL.createObjectURL(f);
+      img.onload = () => {
+        out.hidden = false;
+        out.innerHTML = '<span class="answer-box__label">Tu logo a tamaño mínimo</span>';
+        const grid = document.createElement('div');
+        grid.style.cssText = 'display:flex; gap:18px; flex-wrap:wrap; align-items:flex-end; margin-top:12px;';
+        SIZES.forEach((s) => {
+          const c = document.createElement('canvas');
+          c.width = s; c.height = s;
+          c.style.cssText = 'background:#fff; border:1px solid #ddd;';
+          const ctx = c.getContext('2d');
+          const r = Math.min(s / img.width, s / img.height);
+          const w = img.width * r, h = img.height * r;
+          ctx.drawImage(img, (s - w) / 2, (s - h) / 2, w, h);
+
+          const mag = document.createElement('canvas');
+          mag.width = 88; mag.height = 88;
+          mag.style.cssText = 'background:#fff; border:1px solid #ddd; image-rendering:pixelated;';
+          const mctx = mag.getContext('2d');
+          mctx.imageSmoothingEnabled = false;
+          mctx.drawImage(c, 0, 0, 88, 88);
+
+          const cell = document.createElement('div');
+          cell.style.cssText = 'text-align:center; font-size:13px; color:#3b3d44;';
+          const label = document.createElement('div');
+          label.textContent = s + ' px';
+          label.style.cssText = 'margin-bottom:6px; font-weight:600;';
+          cell.appendChild(label);
+          cell.appendChild(mag);
+          const real = document.createElement('div');
+          real.style.cssText = 'margin-top:8px; display:flex; justify-content:center;';
+          real.appendChild(c);
+          cell.appendChild(real);
+          grid.appendChild(cell);
+        });
+        out.appendChild(grid);
+        URL.revokeObjectURL(objUrl);
+      };
+      img.onerror = () => {
+        out.hidden = false;
+        out.innerHTML = '<span class="answer-box__label">Error</span><p style="margin:.4em 0 0;">No se pudo leer el archivo. Prueba con PNG, SVG o JPG.</p>';
+      };
+      img.src = objUrl;
+    });
+  </script>
+</Content>

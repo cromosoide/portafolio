@@ -1,0 +1,112 @@
+---
+import Content from '../../layouts/Content.astro';
+import { softwareApplicationSchema, howToSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+const url = '/herramientas/auditoria-eeat/';
+
+const items = [
+  'Hay un autor visible, con nombre real, en la página.',
+  'Existe una página «Sobre» o bio con credenciales y trayectoria.',
+  'Se ve la fecha de publicación o de última actualización.',
+  'El contenido cita fuentes o datos con enlace.',
+  'Muestra experiencia de primera mano: casos, ejemplos o trabajos propios.',
+  'Hay datos de contacto reales (correo, teléfono o formulario).',
+  'El sitio carga en HTTPS.',
+  'Queda claro quién está detrás (persona, equipo o empresa).',
+  'Incluye reseñas, testimonios o casos verificables.',
+  'La presencia es consistente fuera del sitio (LinkedIn, perfiles, menciones).',
+];
+
+const jsonLd = [
+  softwareApplicationSchema({
+    name: 'Auditoría E-E-A-T rápida',
+    description: 'Checklist puntuable de experiencia, pericia, autoridad y confianza (E-E-A-T) para una página o sitio.',
+    url,
+  }),
+  howToSchema({
+    name: 'Cómo hacer una auditoría E-E-A-T rápida',
+    description: 'Marca las señales que cumple tu página y obtén una puntuación.',
+    steps: [
+      { name: 'Revisa cada señal', text: 'Marca las afirmaciones que tu página cumple hoy.' },
+      { name: 'Calcula', text: 'Obtén una puntuación de 0 a 100 y un veredicto.' },
+      { name: 'Mejora', text: 'Trabaja primero las señales sin marcar.' },
+    ],
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Herramientas', url: '/herramientas/' },
+    { name: 'Auditoría E-E-A-T', url },
+  ]),
+];
+---
+<Content
+  title="Auditoría E-E-A-T rápida (checklist puntuable) | Santiago Gil"
+  description="Checklist gratuito de E-E-A-T: marca las señales de experiencia, autoridad y confianza que cumple tu página y obtén una puntuación con recomendaciones."
+  canonical={url}
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › <span>Auditoría E-E-A-T</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Herramienta</span>
+    <h1>Auditoría E-E-A-T rápida</h1>
+    <p class="lede">E-E-A-T (experiencia, pericia, autoridad y confianza) es lo que buscadores y modelos de IA usan para decidir a quién citar. Marca lo que cumple tu página.</p>
+  </section>
+
+  <section class="container" style="max-width: 760px; padding-bottom: 24px;">
+    <div class="tool-panel">
+      <div id="checklist">
+        {items.map((label, i) => (
+          <label class="tool-field" style="display:flex; gap:12px; align-items:flex-start; font-weight:400; margin:10px 0;">
+            <input type="checkbox" data-eeat id={`q${i}`} style="width:auto; margin-top:4px;" />
+            <span>{label}</span>
+          </label>
+        ))}
+      </div>
+      <button class="btn" id="calc" type="button">Calcular puntuación</button>
+      <div class="tool-result" id="out" hidden></div>
+    </div>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="cta-box">
+      <h3>¿Quieres ser fuente citable?</h3>
+      <p>E-E-A-T es la base de la visibilidad en IA. La consultoría de AI SEO trabaja entidad, contenido y señales de confianza.</p>
+      <a href="/servicios/consultoria-ai-seo/" class="btn">Ver consultoría de AI SEO</a>
+    </div>
+  </section>
+
+  <script>
+    const labels = Array.from(document.querySelectorAll('#checklist span')).map((s) => s.textContent);
+    const boxes = Array.from(document.querySelectorAll('[data-eeat]'));
+    const out = document.getElementById('out');
+
+    function calc() {
+      const total = boxes.length;
+      const checked = boxes.filter((b) => b.checked).length;
+      const score = Math.round((checked / total) * 100);
+      let verdict, color;
+      if (score < 50) { verdict = 'Señal débil'; color = '#c62828'; }
+      else if (score < 80) { verdict = 'Mejorable'; color = '#b26a00'; }
+      else { verdict = 'Señal sólida'; color = '#2e7d32'; }
+
+      const pend = boxes.map((b, i) => (b.checked ? null : labels[i])).filter(Boolean);
+      let html =
+        '<span class="answer-box__label">Resultado</span>' +
+        '<strong style="color:' + color + ';">' + verdict + ' · ' + score + '/100</strong>';
+      if (pend.length) {
+        html += '<p style="margin:14px 0 6px; font-weight:600;">Por mejorar:</p><ul style="margin:0; padding-left:18px;">' +
+          pend.map((p) => '<li style="margin:4px 0;">' + p + '</li>').join('') + '</ul>';
+      } else {
+        html += '<p style="margin:12px 0 0;">Cubres las diez señales. Mantén las fechas y las fuentes al día.</p>';
+      }
+      out.hidden = false;
+      out.innerHTML = html;
+    }
+
+    document.getElementById('calc').addEventListener('click', calc);
+    boxes.forEach((b) => b.addEventListener('change', () => { if (!out.hidden) calc(); }));
+  </script>
+</Content>

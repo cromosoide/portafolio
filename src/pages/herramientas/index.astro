@@ -13,11 +13,21 @@ const activas = [
     name: 'Validador de llms.txt',
     desc: 'Revisa si tu archivo llms.txt cumple la estructura que esperan los modelos de lenguaje.',
   },
-];
-const proximas = [
-  { name: 'Test de logo a 8 px', desc: 'Comprueba si tu logo aguanta a tamaño mínimo.' },
-  { name: 'Generador de paleta desde imagen', desc: 'Extrae una paleta de color a partir de una foto.' },
-  { name: 'Auditoría E-E-A-T rápida', desc: 'Checklist puntuable de experiencia, autoridad y confianza.' },
+  {
+    slug: 'test-logo-8px',
+    name: 'Test de logo a 8 px',
+    desc: 'Sube tu logo y comprueba si se lee a tamaños mínimos (favicon, ícono, avatar).',
+  },
+  {
+    slug: 'generador-de-paleta',
+    name: 'Generador de paleta desde imagen',
+    desc: 'Extrae los colores dominantes de una imagen con sus códigos hexadecimales.',
+  },
+  {
+    slug: 'auditoria-eeat',
+    name: 'Auditoría E-E-A-T rápida',
+    desc: 'Checklist puntuable de experiencia, autoridad y confianza para tu página o sitio.',
+  },
 ];
 
 const jsonLd = [
@@ -29,17 +39,17 @@ const jsonLd = [
 ---
 <Content
   title="Herramientas gratuitas de branding y AI SEO | Santiago Gil"
-  description="Herramientas gratuitas para branding y AI SEO: calculadora de presupuesto de branding y validador de llms.txt. Sin registro, hechas por Santiago Gil."
+  description="5 herramientas gratuitas para branding y AI SEO: presupuesto de branding, validador de llms.txt, test de logo a 8 px, paleta desde imagen y auditoría E-E-A-T."
   canonical="/herramientas/"
   jsonLd={jsonLd}
 >
   <section class="container page-hero">
     <span class="eyebrow">Herramientas</span>
     <h1>Herramientas gratuitas</h1>
-    <p class="lede">Utilidades para presupuestar marca y preparar tu sitio para la búsqueda con IA. Sin registro.</p>
+    <p class="lede">Cinco utilidades para presupuestar marca, revisar tu logo y preparar tu sitio para la búsqueda con IA. Sin registro, todo en tu navegador.</p>
   </section>
 
-  <section class="container" style="padding-bottom: 16px;">
+  <section class="container" style="padding-bottom: 48px;">
     <div class="card-grid">
       {activas.map((t) => (
         <article class="card">
@@ -47,19 +57,6 @@ const jsonLd = [
           <h3><a href={`/herramientas/${t.slug}/`}>{t.name}</a></h3>
           <p>{t.desc}</p>
           <a href={`/herramientas/${t.slug}/`}>Abrir herramienta →</a>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="container" style="padding-bottom: 48px;">
-    <h2 style="font-size:1.2rem; color:#3b3d44; margin-bottom:16px;">Próximamente</h2>
-    <div class="card-grid">
-      {proximas.map((t) => (
-        <article class="card" style="opacity:.7;">
-          <span class="tag" style="color:var(--gray);">Próximamente</span>
-          <h3>{t.name}</h3>
-          <p>{t.desc}</p>
         </article>
       ))}
     </div>
