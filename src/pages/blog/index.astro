@@ -1,0 +1,45 @@
+---
+import Content from '../../layouts/Content.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbSchema } from '../../lib/schema.js';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Blog', url: '/blog/' },
+  ]),
+];
+---
+<Content
+  title="Blog · Branding, diseño y AI SEO | Santiago Gil"
+  description="Guías sobre identidad de marca, branding boutique, precios de diseño, marca personal y AI SEO (GEO/AEO). Contenido citable por Santiago Gil."
+  canonical="/blog/"
+  jsonLd={jsonLd}
+>
+  <section class="container page-hero">
+    <span class="eyebrow">Blog</span>
+    <h1>Guías de branding, diseño y AI SEO</h1>
+    <p class="lede">Cómo se construye una marca y cómo se vuelve visible, en buscadores y en respuestas de IA.</p>
+  </section>
+
+  <section class="container" style="padding-bottom: 40px;">
+    {posts.length === 0 ? (
+      <p>Pronto: las primeras guías.</p>
+    ) : (
+      <div class="card-grid">
+        {posts.map((p) => (
+          <article class="card">
+            <span class="tag">{p.data.clusterLabel}</span>
+            <h3><a href={`/blog/${p.id}/`}>{p.data.title}</a></h3>
+            <p>{p.data.description}</p>
+            <a href={`/blog/${p.id}/`}>Leer la guía →</a>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</Content>

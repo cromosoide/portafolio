@@ -1,0 +1,145 @@
+---
+title: "Qué es GEO (Generative Engine Optimization): guía 2026"
+description: "Qué es GEO (generative engine optimization), en qué se diferencia del SEO y del AEO, y qué tácticas usar para que los LLMs citen tu marca."
+cluster: "c5-ia-geo-aeo"
+clusterLabel: "IA, GEO y AEO"
+pubDate: 2026-06-02
+answer: "GEO (generative engine optimization) es la práctica de optimizar contenido para que motores generativos como ChatGPT, Perplexity y los AI Overviews de Google lo citen en sus respuestas. El SEO busca posiciones en una lista de enlaces; el GEO busca ser la fuente que el modelo resume y atribuye."
+keywords: ["GEO", "generative engine optimization", "qué es GEO", "AEO", "AI SEO"]
+cornerstone: true
+faqs:
+  - question: "¿GEO y SEO son lo mismo?"
+    answer: "No. El SEO optimiza para aparecer alto en una lista de enlaces azules. El GEO optimiza para que un motor generativo cite tu contenido dentro de una respuesta redactada. Comparten cimientos técnicos, como rastreo e indexación, pero la unidad de éxito cambia: posición frente a citación."
+  - question: "¿Qué es AEO (answer engine optimization)?"
+    answer: "AEO es la optimización para motores de respuesta: ganar la respuesta directa a una pregunta concreta, como un featured snippet o el bloque de respuesta de un asistente. El GEO es más amplio y cubre cómo un modelo generativo sintetiza y atribuye varias fuentes en un texto nuevo."
+  - question: "¿Cómo se mide el GEO?"
+    answer: "Se mide la citación, no solo el clic. Conviene registrar con qué frecuencia ChatGPT, Perplexity, Gemini y los AI Overviews mencionan o enlazan la marca ante consultas objetivo. También se sigue el «share of voice» frente a competidores y las menciones digitales de la marca en la web."
+  - question: "¿Sirve el schema para GEO?"
+    answer: "Sí. El schema JSON-LD describe entidades y relaciones en un lenguaje que las máquinas leen sin ambigüedad. Define quién eres, qué ofreces y cómo se conectan tus páginas. Eso ayuda a que un modelo entienda y reutilice el contenido con la atribución correcta."
+  - question: "¿Qué es llms.txt?"
+    answer: "Es un archivo de texto propuesto en la raíz del dominio, en /llms.txt. Resume el sitio y enlaza las páginas clave en formato limpio para que los modelos las consuman. Es una convención emergente, no un estándar oficial; su adopción por cada motor todavía varía."
+  - question: "¿El schema FAQPage sigue sirviendo si ya no salen los rich results?"
+    answer: "Sí, con un matiz. Google retira los rich results de FAQ de los resultados tradicionales entre mayo y junio de 2026. El marcado FAQPage sigue siendo útil porque estructura preguntas y respuestas en un formato que los AI Overviews y otros motores generativos leen con facilidad."
+  - question: "¿Las menciones de marca importan más que los backlinks para GEO?"
+    answer: "Los datos apuntan en esa dirección. Un análisis de correlación de 2026 halló que las menciones digitales de una marca correlacionan con su citación en LLMs con r = 0,664, frente a r = 0,218 de los backlinks. La conversación sobre la marca pesa, no solo los enlaces."
+---
+
+El GEO (generative engine optimization) es la práctica de optimizar contenido para que los motores generativos lo citen. Hablamos de ChatGPT, Perplexity, Gemini, Claude y los AI Overviews de Google. Estos sistemas no devuelven una lista de enlaces. Redactan una respuesta y, a veces, atribuyen sus fuentes. El GEO busca ser esa fuente: el texto que el modelo entiende, resume y menciona. El SEO clásico pelea por una posición; el GEO pelea por una citación dentro de la respuesta.
+
+La diferencia parece sutil. No lo es. Cambia la unidad de éxito.
+
+## Qué es GEO y por qué surge ahora
+
+Durante dos décadas, el objetivo del SEO fue claro: subir en la lista de resultados. Diez enlaces azules, y el primero se llevaba la mayoría de los clics.
+
+Ese reparto cambió. Los motores empezaron a responder en vez de enlazar. La consulta termina dentro de la propia pantalla de resultados.
+
+Aquí entra el GEO. La meta deja de ser «aparecer primero» y pasa a ser «ser citado». Un modelo lee muchas fuentes, las sintetiza y produce un texto nuevo. La pregunta operativa es: ¿de qué fuentes saca su respuesta y a cuáles atribuye?
+
+El GEO trabaja sobre esa pregunta. Estructura el contenido para que el modelo lo identifique como claro, fiable y fácil de reutilizar.
+
+## GEO vs SEO vs AEO
+
+Las tres siglas se confunden. Conviene separarlas, porque cada una optimiza para un momento distinto del recorrido.
+
+El SEO optimiza para listas de enlaces. El AEO (answer engine optimization) optimiza para la respuesta directa a una pregunta concreta. El GEO optimiza para la síntesis que un motor generativo redacta a partir de varias fuentes.
+
+| Dimensión | SEO | AEO | GEO |
+| --- | --- | --- | --- |
+| Objetivo | Posición en la lista | Ganar la respuesta directa | Ser citado en la síntesis |
+| Resultado | Diez enlaces azules | Featured snippet, caja de respuesta | Texto redactado con atribución |
+| Unidad de éxito | Clic | Respuesta capturada | Citación o mención |
+| Motor típico | Buscador clásico | Buscador + asistente | ChatGPT, Perplexity, Gemini, AI Overviews |
+| Formato que premia | Página completa | Respuesta concisa a una pregunta | Contenido estructurado y citable |
+
+Las tres comparten cimientos. Si un motor no rastrea ni indexa la página, nada de lo demás ocurre. Lo que cambia es la capa de arriba: qué cuenta como ganar.
+
+El GEO no reemplaza al SEO. Lo extiende. Sobre la misma base técnica añade una pregunta nueva: ¿el modelo entiende este contenido lo bastante bien para citarlo?
+
+## Por qué importa ahora: el dato del zero-click
+
+Conviene mirar las cifras antes de invertir esfuerzo. Vienen de Google I/O 2026.
+
+El AI Mode de Google superó los 1 000 millones de usuarios. Cerca del 93 % de las consultas son «zero-click»: terminan sin que la persona haga clic hacia un sitio. La respuesta se consume en la propia página de resultados.
+
+El impacto en el tráfico es directo. Según Google I/O 2026, el CTR de la posición 1 cae del 27 % al 11 % cuando aparece un AI Overview. La misma posición, menos de la mitad de los clics.
+
+Leído en frío, el mensaje es claro. La posición sigue importando, pero captura menos. Una parte creciente de la atención se queda en la respuesta generada.
+
+Aquí el GEO deja de ser opcional. Si el motor responde sin enviar tráfico, la presencia útil es estar dentro de esa respuesta. Ser la fuente citada cuando alguien pregunta por tu tema, tu categoría o tu marca.
+
+Estas tácticas se enmarcan en un sistema más amplio. El marco PRISMA organiza el trabajo en capas: Posicionamiento (SEO), Reconocimiento (AIO), Influencia (GEO), Solución (AEO), Medición y Afinación (SXO). El GEO es una capa, no el todo. Funciona mejor apoyado en las demás.
+
+Si quieres una lectura de tu situación concreta, la [consultoría de SEO y AI SEO](/servicios/consultoria-ai-seo/) revisa qué consultas ya te citan y dónde estás ausente.
+
+## Tácticas concretas de GEO
+
+El GEO se ejecuta con decisiones de contenido y de estructura. Estas son las palancas con más evidencia a favor.
+
+### 1. Define entidades claras
+
+Un modelo razona con entidades: personas, marcas, lugares, conceptos. Cuando una página deja claro de qué entidad habla, el modelo la asocia con su tema con menos ambigüedad.
+
+Nombra las cosas por su nombre. Conecta tu marca con su categoría, su ubicación y sus servicios. La consistencia entre páginas refuerza esa asociación.
+
+### 2. Publica datos citables
+
+Los motores prefieren citar afirmaciones verificables. Una cifra con fuente, una fecha, un dato propio de un estudio o de tu experiencia.
+
+El contenido genérico se diluye. El contenido con datos concretos y atribuidos se vuelve material de cita. Cuando uses una cifra, di de dónde sale.
+
+### 3. Marca el contenido con schema y JSON-LD
+
+El schema JSON-LD traduce el contenido a un lenguaje que las máquinas leen sin interpretar prosa. Declara qué es cada cosa y cómo se relaciona.
+
+Un detalle de 2026 lo hace interesante. Los rich results de FAQ se retiran de los resultados de búsqueda tradicionales entre mayo y junio de 2026. Aun así, el schema FAQPage sigue siendo útil para los AI Overviews, porque estructura preguntas y respuestas en un formato que el motor reutiliza. El marcado pierde su adorno visual, no su función para la capa generativa.
+
+Si quieres profundizar en cómo el schema describe entidades de marca, ayuda entender primero [qué es la identidad de marca](/blog/que-es-la-identidad-de-marca/) y cómo se traduce a datos estructurados.
+
+### 4. Considera el archivo llms.txt
+
+El llms.txt es un archivo de texto en la raíz del dominio, en /llms.txt. Resume el sitio y enlaza sus páginas clave en formato limpio para los modelos.
+
+Es una convención emergente. Su adopción por cada motor todavía varía, así que conviene verlo como una apuesta de bajo costo, no como una garantía. Para revisar que el tuyo esté bien formado, usa el [validador de llms.txt](/herramientas/validador-llms-txt/) gratuito.
+
+### 5. Cultiva menciones digitales de tu marca
+
+Aquí aparece el hallazgo más útil del año. Un análisis de correlación de 2026 encontró que las menciones digitales de una marca correlacionan con su citación en LLMs con r = 0,664. Los backlinks correlacionan con r = 0,218.
+
+La lectura es sobria: la conversación sobre la marca pesa más que el enlace en sí. Que se hable de ti en artículos, foros, reseñas y redes alimenta el patrón que el modelo aprende. No sustituye al backlink, pero lo supera como señal en este análisis.
+
+### 6. Escribe respuestas directas de 40 a 60 palabras
+
+Los motores extraen mejor las respuestas autocontenidas. Una pregunta seguida de una respuesta corta y completa es material listo para citar.
+
+Abre cada tema con su definición. Responde la pregunta en las primeras frases. Luego desarrolla. Esa estructura sirve al lector apurado y al modelo que busca el fragmento citable.
+
+## Errores comunes al empezar con GEO
+
+El primero es tratarlo como una técnica aparte. El GEO se apoya en el SEO: sin rastreo ni indexación, el modelo no ve la página. Quien abandona la base técnica pierde el cimiento de todo lo demás.
+
+El segundo es escribir para impresionar al modelo. El contenido inflado, lleno de palabras clave repetidas, rinde peor que una respuesta clara. Los motores premian la utilidad legible, no el relleno.
+
+El tercero es prometer cifras sin fuente. Una afirmación sin respaldo es fácil de ignorar para un motor que busca material citable. Cuando no tengas un dato exacto, explícalo en cualitativo y sé honesto sobre el límite.
+
+El cuarto es medir una sola vez. Los motores cambian de versión y de comportamiento seguido. Una foto aislada engaña; la tendencia, repetida en el tiempo, informa.
+
+## Cómo se mide la citación en LLMs
+
+El GEO exige una métrica nueva. El clic deja de ser el único indicador, porque buena parte del valor ocurre sin clic.
+
+La métrica central es la citación. ¿Con qué frecuencia te menciona o enlaza un motor generativo ante tus consultas objetivo? Se mide preguntando lo mismo a ChatGPT, Perplexity, Gemini y a los AI Overviews, y registrando si apareces.
+
+Conviene seguir tres señales en paralelo. Primero, la presencia: apareces o no apareces en la respuesta. Segundo, el «share of voice»: cuánto sales frente a tus competidores ante la misma pregunta. Tercero, el sentido: cómo te describe el modelo y si la descripción es exacta.
+
+A esto se suma el seguimiento de menciones digitales. Dado el peso que mostró el análisis de correlación de 2026, vigilar dónde y cómo se habla de la marca es parte de la medición, no un extra.
+
+Ninguna de estas métricas es perfecta todavía. El campo es joven y los motores cambian rápido. La postura razonable es medir con humildad, repetir las consultas en el tiempo y observar tendencias antes que números absolutos.
+
+## Por dónde empezar
+
+El GEO no pide tirar el SEO a la basura. Pide ampliarlo. La base técnica sigue siendo necesaria; encima se añade el trabajo de claridad, datos citables y entidades bien definidas.
+
+Un primer paso útil cabe en una tarde. Toma tus cinco consultas más importantes. Pregúntalas en ChatGPT, Perplexity y Gemini. Anota si apareces, quién aparece en tu lugar y cómo te describen. Ese mapa te dice dónde está la oportunidad.
+
+Si prefieres una revisión a fondo, con un plan por capas y una línea base de citación, la [consultoría de SEO y AI SEO](/servicios/consultoria-ai-seo/) lo aborda de forma estructurada. También puedes escribir desde la página de [contacto](/#contacto) para comentar tu caso.

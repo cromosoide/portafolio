@@ -1,0 +1,19 @@
+---
+import Content from '../layouts/Content.astro';
+---
+<Content
+  title="Página no encontrada (404) | Santiago Gil"
+  description="La página que buscas no existe o se movió."
+  noindex={true}
+>
+  <section class="container page-hero" style="min-height: 52vh;">
+    <span class="eyebrow">Error 404</span>
+    <h1>Esta página no existe</h1>
+    <p class="lede">El enlace puede estar roto o la página se movió de lugar.</p>
+    <p style="margin-top: 24px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+      <a class="btn" href="/">Volver al inicio</a>
+      <a href="/blog/">Ir al blog</a>
+      <a href="/herramientas/">Ver herramientas</a>
+    </p>
+  </section>
+</Content>

@@ -1,0 +1,117 @@
+---
+import Content from '../layouts/Content.astro';
+import { personSchema, professionalServiceSchema, breadcrumbSchema } from '../lib/schema.js';
+
+const jsonLd = [
+  personSchema,
+  professionalServiceSchema,
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Sobre Santiago Gil', url: '/sobre/' },
+  ]),
+];
+
+const experiencia = [
+  { rol: 'Corporativo inMotion', periodo: '2023 — actual' },
+  { rol: 'COESyP', periodo: '2018 — 2023' },
+  { rol: 'Freelance', periodo: '2016 — 2018' },
+];
+const formacion = [
+  { item: 'UNAM — Informática', periodo: '2024 — actual' },
+  { item: 'FAD UNAM — Diseño y Comunicación Visual', periodo: '2014 — 2017' },
+  { item: 'Oracle Alura — Front-end', periodo: '2023' },
+  { item: 'Domestika — Diseño de interfaces web y apps', periodo: '2022' },
+  { item: 'Santander Academy — Storytelling y Marketing Digital', periodo: '2024' },
+];
+const prisma = [
+  ['Posicionamiento', 'SEO', 'Cimientos técnicos: indexación, on-page, autoridad, velocidad.'],
+  ['Reconocimiento', 'AIO', 'Que los modelos te identifiquen como entidad: schema, llms.txt, menciones.'],
+  ['Influencia', 'GEO', 'Aparecer en AI Overviews y respuestas generativas.'],
+  ['Solución', 'AEO', 'Ser la respuesta directa: datos citables y preguntas frecuentes.'],
+  ['Medición', '—', 'Monitoreo continuo en buscadores y en LLMs.'],
+  ['Afinación', 'SXO', 'Core Web Vitals, experiencia y conversión post-clic.'],
+];
+---
+<Content
+  title="Sobre Santiago Gil — experiencia, credenciales y método | CDMX"
+  description="Quién es Santiago Gil (Chago): estratega de branding y marketing en CDMX con 10+ años, formado en la FAD de la UNAM. Experiencia, credenciales y método de trabajo."
+  canonical="/sobre/"
+  type="profile"
+  image="/images/profile_photo_santiago.png"
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <span>Sobre Santiago Gil</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Sobre</span>
+    <h1>Santiago Gil, estratega de branding y marketing en CDMX</h1>
+    <p class="lede">Diez años de trabajo entre dirección creativa y estrategia de marca. Identidad, posicionamiento, diseño web y AI SEO para negocios en crecimiento.</p>
+  </section>
+
+  <section class="container" style="max-width: 760px; padding-bottom: 8px;">
+    <div class="prose">
+      <p>Santiago Gil («Chago») trabaja en branding y marketing desde Ciudad de México. Combina dirección creativa con estrategia de marca para ayudar a negocios a crecer con coherencia. Su trabajo cubre identidad de marca, posicionamiento, naming, diseño web y consultoría de SEO y AI SEO.</p>
+      <p>Es fundador de <a href="https://www.nebugrama.com/" target="_blank" rel="noopener noreferrer">Nebugrama</a>, un estudio boutique de branding y marketing digital para PyMEs y founders en México y Latinoamérica. También produce contenido visual para marcas de transporte en la región.</p>
+
+      <h2>Experiencia</h2>
+      <table>
+        <thead><tr><th>Rol</th><th>Periodo</th></tr></thead>
+        <tbody>
+          {experiencia.map((e) => (<tr><td>{e.rol}</td><td>{e.periodo}</td></tr>))}
+        </tbody>
+      </table>
+
+      <h2>Formación</h2>
+      <table>
+        <thead><tr><th>Programa</th><th>Periodo</th></tr></thead>
+        <tbody>
+          {formacion.map((f) => (<tr><td>{f.item}</td><td>{f.periodo}</td></tr>))}
+        </tbody>
+      </table>
+
+      <h2>Cómo trabaja: el método PRISMA</h2>
+      <p>PRISMA ordena el trabajo de visibilidad en seis capas, de los cimientos técnicos hasta la experiencia post-clic. Une el SEO clásico con la optimización para motores generativos (GEO) y de respuestas (AEO).</p>
+      <table>
+        <thead><tr><th>Capa</th><th>Disciplina</th><th>Foco</th></tr></thead>
+        <tbody>
+          {prisma.map((p) => (<tr><td><strong>{p[0]}</strong></td><td>{p[1]}</td><td>{p[2]}</td></tr>))}
+        </tbody>
+      </table>
+      <p>Hay una guía completa sobre la capa de IA en <a href="/blog/que-es-geo-generative-engine-optimization/">qué es GEO</a>.</p>
+
+      <h2>Áreas de trabajo</h2>
+      <ul>
+        <li><a href="/servicios/branding/">Branding e identidad de marca</a></li>
+        <li><a href="/servicios/marca-personal/">Marca personal</a></li>
+        <li><a href="/servicios/diseno-web/">Diseño web</a></li>
+        <li><a href="/servicios/estrategia/">Estrategia de marca</a></li>
+        <li><a href="/servicios/consultoria-ai-seo/">Consultoría SEO y AI SEO</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="tool-panel">
+      <h2 style="margin-top:0;">Rangos de referencia (México, 2026)</h2>
+      <p style="color:#3b3d44;">Cifras orientativas para presupuestar. El precio real depende del alcance, los entregables y la profundidad de investigación.</p>
+      <table>
+        <thead><tr><th>Trabajo</th><th>Rango / tiempo de referencia</th></tr></thead>
+        <tbody>
+          <tr><td>Identidad de marca básica</td><td>$15,000–$45,000 MXN</td></tr>
+          <tr><td>Brand book completo</td><td>3–6 semanas</td></tr>
+          <tr><td>Sitio web multisección</td><td>$40,000–$120,000 MXN</td></tr>
+          <tr><td>Branding boutique integral</td><td>$60,000–$250,000 MXN</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-bottom:0;">Detalle en la guía de <a href="/blog/cuanto-cobra-un-disenador-grafico-en-mexico/">precios de diseño en México</a> y en la <a href="/herramientas/calculadora-presupuesto-branding/">calculadora de presupuesto</a>.</p>
+    </div>
+
+    <div class="cta-box" style="margin-top:48px;">
+      <h3>¿Trabajamos juntos?</h3>
+      <p>Cuéntame qué marca quieres construir. Respuesta en menos de 24 horas hábiles.</p>
+      <a href="/#contacto" class="btn">Hablemos</a>
+    </div>
+  </section>
+</Content>

@@ -1,0 +1,91 @@
+---
+import Content from '../../layouts/Content.astro';
+import { servicios } from '../../data/servicios.js';
+import { serviceSchema, faqPageSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+export function getStaticPaths() {
+  return servicios.map((s) => ({ params: { slug: s.slug }, props: { servicio: s } }));
+}
+
+const { servicio } = Astro.props;
+const url = `/servicios/${servicio.slug}/`;
+
+const jsonLd = [
+  serviceSchema({
+    name: servicio.title,
+    description: servicio.description,
+    url,
+    serviceType: servicio.serviceType,
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios/' },
+    { name: servicio.title, url },
+  ]),
+];
+if (servicio.faqs && servicio.faqs.length) jsonLd.push(faqPageSchema(servicio.faqs));
+---
+<Content
+  title={`${servicio.title} en CDMX | Santiago Gil`}
+  description={servicio.description}
+  canonical={url}
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <a href="/servicios/">Servicios</a> › <span>{servicio.title}</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Servicio</span>
+    <h1>{servicio.title}</h1>
+    <p class="lede">{servicio.lede}</p>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="prose">
+      <p>{servicio.intro}</p>
+
+      <h2>Qué incluye</h2>
+      <ul>
+        {servicio.incluye.map((i) => (<li>{i}</li>))}
+      </ul>
+
+      <h2>Para quién es</h2>
+      <p>{servicio.paraQuien}</p>
+
+      <h2>Cómo trabajamos</h2>
+      <ol>
+        {servicio.proceso.map((p) => (
+          <li><strong>{p.name}.</strong> {p.text}</li>
+        ))}
+      </ol>
+    </div>
+
+    {servicio.faqs && servicio.faqs.length > 0 && (
+      <section class="faq" aria-label="Preguntas frecuentes">
+        <h2>Preguntas frecuentes</h2>
+        {servicio.faqs.map((f) => (
+          <details>
+            <summary>{f.question}</summary>
+            <p>{f.answer}</p>
+          </details>
+        ))}
+      </section>
+    )}
+
+    {servicio.relacionados && servicio.relacionados.length > 0 && (
+      <div class="prose" style="margin-top:40px;">
+        <h2>Lecturas relacionadas</h2>
+        <ul>
+          {servicio.relacionados.map((r) => (<li><a href={r.href}>{r.label}</a></li>))}
+        </ul>
+      </div>
+    )}
+
+    <div class="cta-box">
+      <h3>¿Empezamos?</h3>
+      <p>Cuéntame el proyecto. Te respondo con un alcance y un rango claros.</p>
+      <a href="/#contacto" class="btn">Hablemos</a>
+    </div>
+  </section>
+</Content>

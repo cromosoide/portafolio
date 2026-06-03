@@ -1,0 +1,37 @@
+---
+import Content from '../../layouts/Content.astro';
+import { servicios } from '../../data/servicios.js';
+import { breadcrumbSchema } from '../../lib/schema.js';
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Servicios', url: '/servicios/' },
+  ]),
+];
+---
+<Content
+  title="Servicios de branding, diseño web y AI SEO | Santiago Gil"
+  description="Servicios de Santiago Gil en CDMX: branding e identidad de marca, marca personal, diseño web, estrategia y consultoría de SEO y AI SEO para negocios en crecimiento."
+  canonical="/servicios/"
+  jsonLd={jsonLd}
+>
+  <section class="container page-hero">
+    <span class="eyebrow">Servicios</span>
+    <h1>Branding, diseño y visibilidad con método</h1>
+    <p class="lede">Cinco formas de trabajar la marca, desde la estrategia hasta la visibilidad en buscadores y en respuestas de IA.</p>
+  </section>
+
+  <section class="container" style="padding-bottom: 40px;">
+    <div class="card-grid">
+      {servicios.map((s) => (
+        <article class="card">
+          <span class="tag">{s.serviceType}</span>
+          <h3><a href={`/servicios/${s.slug}/`}>{s.title}</a></h3>
+          <p>{s.lede}</p>
+          <a href={`/servicios/${s.slug}/`}>Ver servicio →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</Content>
