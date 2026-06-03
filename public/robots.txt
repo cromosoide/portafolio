@@ -41,4 +41,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://santiagogil.com.mx/sitemap-index.xml
+Sitemap: https://santiagogil.com.mx/sitemap.xml
