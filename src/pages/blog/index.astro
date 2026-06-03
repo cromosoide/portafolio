@@ -3,9 +3,32 @@ import Content from '../../layouts/Content.astro';
 import { getCollection } from 'astro:content';
 import { breadcrumbSchema } from '../../lib/schema.js';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const all = await getCollection('blog', ({ data }) => !data.draft);
+
+// Orden de clusters para el siloing temático.
+const ORDER = [
+  'c1-fundamentos',
+  'c2-nicho',
+  'c3-pricing',
+  'c4-decision',
+  'c5-ia-geo-aeo',
+  'c6-marca-personal',
+  'c7-neuro-emocional',
+  'c8-tendencias',
+];
+
+const groups = ORDER.map((key) => {
+  const posts = all
+    .filter((p) => p.data.cluster === key)
+    .sort(
+      (a, b) =>
+        Number(b.data.cornerstone) - Number(a.data.cornerstone) ||
+        b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    );
+  return posts.length ? { key, label: posts[0].data.clusterLabel, posts } : null;
+}).filter(Boolean);
+
+const total = all.length;
 
 const jsonLd = [
   breadcrumbSchema([
@@ -21,25 +44,28 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <section class="container page-hero">
-    <span class="eyebrow">Blog</span>
+    <span class="eyebrow">Blog · {total} guías</span>
     <h1>Guías de branding, diseño y AI SEO</h1>
-    <p class="lede">Cómo se construye una marca y cómo se vuelve visible, en buscadores y en respuestas de IA.</p>
+    <p class="lede">Cómo se construye una marca y cómo se vuelve visible, en buscadores y en respuestas de IA. Organizadas por tema.</p>
   </section>
 
-  <section class="container" style="padding-bottom: 40px;">
-    {posts.length === 0 ? (
-      <p>Pronto: las primeras guías.</p>
-    ) : (
-      <div class="card-grid">
-        {posts.map((p) => (
-          <article class="card">
-            <span class="tag">{p.data.clusterLabel}</span>
-            <h3><a href={`/blog/${p.id}/`}>{p.data.title}</a></h3>
-            <p>{p.data.description}</p>
-            <a href={`/blog/${p.id}/`}>Leer la guía →</a>
-          </article>
-        ))}
-      </div>
-    )}
-  </section>
+  {groups.length === 0 ? (
+    <section class="container"><p>Pronto: las primeras guías.</p></section>
+  ) : (
+    groups.map((g) => (
+      <section class="container" style="padding-bottom: 28px;">
+        <h2 style="font-size:1.35rem; letter-spacing:-.01em; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--gray-soft);">{g.label}</h2>
+        <div class="card-grid">
+          {g.posts.map((p) => (
+            <article class="card">
+              {p.data.cornerstone && <span class="tag">Guía principal</span>}
+              <h3><a href={`/blog/${p.id}/`}>{p.data.title}</a></h3>
+              <p>{p.data.description}</p>
+              <a href={`/blog/${p.id}/`}>Leer la guía →</a>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))
+  )}
 </Content>
