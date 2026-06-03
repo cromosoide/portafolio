@@ -1,0 +1,86 @@
+---
+/**
+ * Content.astro — layout para páginas de contenido (blog, sobre, servicios,
+ * herramientas). Aporta header con navegación, footer y la hoja site.css.
+ * Reenvía la meta SEO y los bloques JSON-LD a Base.
+ */
+import Base from './Base.astro';
+import Logo from '../components/Logo.astro';
+import '../styles/site.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: 'website' | 'profile' | 'article';
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+}
+const { title, description, canonical, image, type, jsonLd, noindex } = Astro.props;
+const year = new Date().getFullYear();
+---
+<Base title={title} description={description} canonical={canonical} image={image} type={type} jsonLd={jsonLd} noindex={noindex}>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="/" class="site-header__logo" aria-label="Santiago Gil — Inicio">
+        <Logo width={104} height={36} />
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="/">Inicio</a>
+        <a href="/blog/">Blog</a>
+        <a href="/servicios/branding/">Servicios</a>
+        <a href="/herramientas/">Herramientas</a>
+        <a href="/sobre/">Sobre</a>
+        <a href="/#contacto" class="site-nav__cta">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div class="site-footer__col">
+          <h4>Santiago Gil</h4>
+          <p style="max-width:280px;color:#c9cdd6;font-size:15px;margin:0;line-height:1.6;">Estratega de branding y marketing en CDMX. Identidad de marca, diseño web y AI SEO para negocios en crecimiento.</p>
+        </div>
+        <div class="site-footer__col">
+          <h4>Explora</h4>
+          <ul>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/herramientas/">Herramientas</a></li>
+            <li><a href="/sobre/">Sobre Santiago</a></li>
+            <li><a href="/#portafolio">Portafolio</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="/servicios/branding/">Branding</a></li>
+            <li><a href="/servicios/marca-personal/">Marca personal</a></li>
+            <li><a href="/servicios/diseno-web/">Diseño web</a></li>
+            <li><a href="/servicios/estrategia/">Estrategia</a></li>
+            <li><a href="/servicios/consultoria-ai-seo/">AI SEO</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://api.whatsapp.com/send/?phone=5662427661" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            <li><a href="https://www.linkedin.com/in/gil-rivera/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://www.instagram.com/chago.gil/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        Santiago Gil · Branding &amp; Marketing Strategist · CDMX · {year}
+      </div>
+    </div>
+  </footer>
+</Base>

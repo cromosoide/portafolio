@@ -1,0 +1,138 @@
+---
+import Content from '../../layouts/Content.astro';
+import { softwareApplicationSchema, howToSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+const url = '/herramientas/calculadora-presupuesto-branding/';
+const jsonLd = [
+  softwareApplicationSchema({
+    name: 'Calculadora de presupuesto de branding',
+    description: 'Estima un rango de inversión para un proyecto de branding en México según tipo de proyecto, tamaño de marca y alcance web.',
+    url,
+  }),
+  howToSchema({
+    name: 'Cómo estimar el presupuesto de un proyecto de branding',
+    description: 'Tres pasos para obtener un rango de inversión orientativo.',
+    steps: [
+      { name: 'Elige el tipo de proyecto', text: 'Logo, identidad básica, sistema con brand book o branding integral.' },
+      { name: 'Indica tamaño y alcance', text: 'Tamaño de la marca y si necesitas sitio web e investigación.' },
+      { name: 'Lee el rango', text: 'La herramienta devuelve un rango de referencia en pesos mexicanos.' },
+    ],
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Herramientas', url: '/herramientas/' },
+    { name: 'Calculadora de presupuesto de branding', url },
+  ]),
+];
+---
+<Content
+  title="Calculadora de presupuesto de branding (México 2026) | Santiago Gil"
+  description="Calculadora gratuita: estima cuánto cuesta un proyecto de branding en México según tipo, tamaño y alcance web. Rango de referencia en pesos, sin registro."
+  canonical={url}
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › <span>Calculadora de presupuesto</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Herramienta</span>
+    <h1>Calculadora de presupuesto de branding</h1>
+    <p class="lede">Un rango de referencia para presupuestar tu proyecto de marca en México (2026). Orientativo: el precio real depende del alcance.</p>
+  </section>
+
+  <section class="container" style="max-width: 760px; padding-bottom: 24px;">
+    <div class="tool-panel">
+      <div class="tool-field">
+        <label for="tipo">Tipo de proyecto</label>
+        <select id="tipo">
+          <option value="logo">Solo logotipo</option>
+          <option value="identidad" selected>Identidad básica (logo + color + tipografía + mini guía)</option>
+          <option value="sistema">Sistema de identidad + brand book completo</option>
+          <option value="integral">Branding integral (estrategia + identidad + web)</option>
+        </select>
+      </div>
+
+      <div class="tool-field">
+        <label for="size">Tamaño de la marca</label>
+        <select id="size">
+          <option value="nueva" selected>Marca nueva / emprendimiento</option>
+          <option value="pequena">Negocio pequeño en marcha</option>
+          <option value="mediana">Empresa mediana / varios productos</option>
+        </select>
+      </div>
+
+      <div class="tool-field">
+        <label for="web">Alcance web</label>
+        <select id="web">
+          <option value="ninguno" selected>Sin sitio web</option>
+          <option value="landing">Landing de una sección</option>
+          <option value="multiseccion">Sitio multisección</option>
+        </select>
+      </div>
+
+      <div class="tool-field">
+        <label style="display:flex; align-items:center; gap:10px; font-weight:500;">
+          <input type="checkbox" id="research" style="width:auto;" />
+          Incluir investigación de mercado y audiencia
+        </label>
+      </div>
+
+      <button class="btn" id="calc" type="button">Calcular rango</button>
+
+      <div class="tool-result" id="result" hidden></div>
+
+      <p style="font-size:14px; color:var(--gray); margin-bottom:0;">Los rangos son de referencia para el mercado mexicano en 2026. No son una cotización. Para un número exacto, <a href="/#contacto">cuéntame el proyecto</a>.</p>
+    </div>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="prose">
+      <h2>Cómo se calcula</h2>
+      <p>La estimación parte de rangos de referencia por tipo de proyecto y ajusta según el tamaño de la marca, el alcance web y si el proyecto incluye investigación. La lógica es la misma que explica la guía de <a href="/blog/cuanto-cobra-un-disenador-grafico-en-mexico/">cuánto cobra un diseñador gráfico en México</a>.</p>
+    </div>
+    <div class="cta-box">
+      <h3>¿Quieres un número exacto?</h3>
+      <p>Un rango es un punto de partida. Para una cotización real necesito conocer tu marca y tus objetivos.</p>
+      <a href="/servicios/branding/" class="btn">Ver servicio de branding</a>
+    </div>
+  </section>
+
+  <script>
+    const TIPO = { logo: [3000, 15000], identidad: [15000, 45000], sistema: [45000, 150000], integral: [60000, 250000] };
+    const WEB = { ninguno: [0, 0], landing: [12000, 40000], multiseccion: [40000, 120000] };
+    const SIZE = { nueva: 1.0, pequena: 1.1, mediana: 1.35 };
+    const RESEARCH = [8000, 25000];
+
+    const mxn = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    const round1k = (n) => Math.round(n / 1000) * 1000;
+
+    function calc() {
+      const tipo = document.getElementById('tipo').value;
+      const web = document.getElementById('web').value;
+      const size = document.getElementById('size').value;
+      const research = document.getElementById('research').checked;
+
+      const [tMin, tMax] = TIPO[tipo];
+      const [wMin, wMax] = WEB[web];
+      const m = SIZE[size];
+      let min = (tMin + wMin) * m;
+      let max = (tMax + wMax) * m;
+      if (research) { min += RESEARCH[0]; max += RESEARCH[1]; }
+      min = round1k(min);
+      max = round1k(max);
+
+      const box = document.getElementById('result');
+      box.hidden = false;
+      box.innerHTML =
+        '<span class="answer-box__label">Rango estimado</span>' +
+        '<strong>' + mxn.format(min) + ' – ' + mxn.format(max) + '</strong>' +
+        '<p style="margin:.6em 0 0; color:#3b3d44;">Rango de referencia para presupuestar. Incluye diseño y entregables del alcance elegido; no incluye IVA ni impresión.</p>';
+    }
+
+    document.getElementById('calc').addEventListener('click', calc);
+    ['tipo', 'web', 'size'].forEach((id) => document.getElementById(id).addEventListener('change', calc));
+    document.getElementById('research').addEventListener('change', calc);
+    calc();
+  </script>
+</Content>

@@ -1,0 +1,67 @@
+---
+import Content from '../../layouts/Content.astro';
+import { breadcrumbSchema } from '../../lib/schema.js';
+
+const activas = [
+  {
+    slug: 'calculadora-presupuesto-branding',
+    name: 'Calculadora de presupuesto de branding',
+    desc: 'Estima un rango de inversión para tu proyecto de marca según tipo, tamaño y alcance web.',
+  },
+  {
+    slug: 'validador-llms-txt',
+    name: 'Validador de llms.txt',
+    desc: 'Revisa si tu archivo llms.txt cumple la estructura que esperan los modelos de lenguaje.',
+  },
+];
+const proximas = [
+  { name: 'Test de logo a 8 px', desc: 'Comprueba si tu logo aguanta a tamaño mínimo.' },
+  { name: 'Generador de paleta desde imagen', desc: 'Extrae una paleta de color a partir de una foto.' },
+  { name: 'Auditoría E-E-A-T rápida', desc: 'Checklist puntuable de experiencia, autoridad y confianza.' },
+];
+
+const jsonLd = [
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Herramientas', url: '/herramientas/' },
+  ]),
+];
+---
+<Content
+  title="Herramientas gratuitas de branding y AI SEO | Santiago Gil"
+  description="Herramientas gratuitas para branding y AI SEO: calculadora de presupuesto de branding y validador de llms.txt. Sin registro, hechas por Santiago Gil."
+  canonical="/herramientas/"
+  jsonLd={jsonLd}
+>
+  <section class="container page-hero">
+    <span class="eyebrow">Herramientas</span>
+    <h1>Herramientas gratuitas</h1>
+    <p class="lede">Utilidades para presupuestar marca y preparar tu sitio para la búsqueda con IA. Sin registro.</p>
+  </section>
+
+  <section class="container" style="padding-bottom: 16px;">
+    <div class="card-grid">
+      {activas.map((t) => (
+        <article class="card">
+          <span class="tag">Disponible</span>
+          <h3><a href={`/herramientas/${t.slug}/`}>{t.name}</a></h3>
+          <p>{t.desc}</p>
+          <a href={`/herramientas/${t.slug}/`}>Abrir herramienta →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="container" style="padding-bottom: 48px;">
+    <h2 style="font-size:1.2rem; color:#3b3d44; margin-bottom:16px;">Próximamente</h2>
+    <div class="card-grid">
+      {proximas.map((t) => (
+        <article class="card" style="opacity:.7;">
+          <span class="tag" style="color:var(--gray);">Próximamente</span>
+          <h3>{t.name}</h3>
+          <p>{t.desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Content>

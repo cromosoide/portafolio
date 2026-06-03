@@ -1,0 +1,42 @@
+name: Deploy a GitHub Pages
+
+# Construye el sitio Astro y lo publica en GitHub Pages.
+# Requiere que en Settings → Pages el "Source" sea "GitHub Actions"
+# (build_type = workflow). El CNAME vive en public/CNAME y se copia a dist/.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite un solo deploy concurrente; no cancela uno en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build con Astro
+        uses: withastro/action@v3
+        # La acción oficial instala dependencias (detecta package-lock.json),
+        # corre `astro build` y sube el artefacto de Pages automáticamente.
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://santiagogil.com.mx/sitemap.xml

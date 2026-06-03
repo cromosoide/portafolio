@@ -1,0 +1,146 @@
+---
+import Content from '../../layouts/Content.astro';
+import { softwareApplicationSchema, howToSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+const url = '/herramientas/validador-llms-txt/';
+const jsonLd = [
+  softwareApplicationSchema({
+    name: 'Validador de llms.txt',
+    description: 'Revisa si un archivo llms.txt cumple la estructura recomendada para que los modelos de lenguaje entiendan tu sitio.',
+    url,
+  }),
+  howToSchema({
+    name: 'Cómo validar un archivo llms.txt',
+    description: 'Pega el contenido de tu llms.txt y revisa el resultado del checklist.',
+    steps: [
+      { name: 'Pega tu llms.txt', text: 'Copia el contenido de tu archivo llms.txt en el campo de texto.' },
+      { name: 'Valida', text: 'La herramienta revisa título, resumen, secciones, enlaces y contacto.' },
+      { name: 'Corrige', text: 'Ajusta lo que aparezca marcado y vuelve a validar.' },
+    ],
+  }),
+  breadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Herramientas', url: '/herramientas/' },
+    { name: 'Validador de llms.txt', url },
+  ]),
+];
+---
+<Content
+  title="Validador de llms.txt gratuito | Santiago Gil"
+  description="Valida gratis tu archivo llms.txt: revisa título, resumen, secciones, enlaces y contacto que esperan los modelos de lenguaje. Sin registro."
+  canonical={url}
+  jsonLd={jsonLd}
+>
+  <nav class="breadcrumb container" aria-label="Ruta de navegación">
+    <a href="/">Inicio</a> › <a href="/herramientas/">Herramientas</a> › <span>Validador de llms.txt</span>
+  </nav>
+
+  <section class="container page-hero">
+    <span class="eyebrow">Herramienta</span>
+    <h1>Validador de llms.txt</h1>
+    <p class="lede">Pega el contenido de tu archivo <code>llms.txt</code> y revisa si tiene la estructura que ayudan a los modelos de lenguaje a entender tu sitio.</p>
+  </section>
+
+  <section class="container" style="max-width: 760px; padding-bottom: 24px;">
+    <div class="tool-panel">
+      <div class="tool-field">
+        <label for="input">Contenido de tu llms.txt</label>
+        <textarea id="input" rows="12" placeholder="# Nombre del sitio o marca&#10;&#10;> Resumen en una o dos frases.&#10;&#10;## Sección&#10;- Enlace: https://..."></textarea>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn" id="validate" type="button">Validar</button>
+        <button class="btn btn--ghost" id="sample" type="button">Cargar ejemplo</button>
+      </div>
+      <div class="tool-result" id="result" hidden></div>
+    </div>
+  </section>
+
+  <section class="container" style="max-width: 760px;">
+    <div class="prose">
+      <h2>Qué revisa</h2>
+      <ul>
+        <li><strong>Título (H1).</strong> Una línea <code># Nombre</code> que identifica la entidad. Obligatorio.</li>
+        <li><strong>Resumen.</strong> Un blockquote <code>&gt; …</code> que describe el sitio en una o dos frases.</li>
+        <li><strong>Secciones.</strong> Encabezados <code>## …</code> que agrupan enlaces (servicios, guías, contacto).</li>
+        <li><strong>Enlaces.</strong> URLs a las páginas que quieres que los modelos citen.</li>
+        <li><strong>Contacto y sitemap.</strong> Señales de confianza recomendadas.</li>
+      </ul>
+      <p>El archivo va en la raíz del dominio: <code>tudominio.com/llms.txt</code>. Hay más contexto en la guía de <a href="/blog/que-es-geo-generative-engine-optimization/">qué es GEO</a>.</p>
+    </div>
+    <div class="cta-box">
+      <h3>¿Quieres aparecer en respuestas de IA?</h3>
+      <p>El llms.txt es una pieza. La estrategia completa cubre entidades, schema y contenido citable.</p>
+      <a href="/servicios/consultoria-ai-seo/" class="btn">Ver consultoría de AI SEO</a>
+    </div>
+  </section>
+
+  <script>
+    const SAMPLE = `# Mi Marca — Consultoría de X en CDMX
+
+> Mi Marca ayuda a empresas a lograr Y. Servicios de A, B y C en México.
+
+## Servicios
+- Servicio A: https://mimarca.com/servicios/a/
+- Servicio B: https://mimarca.com/servicios/b/
+
+## Guías
+- Guía citable: https://mimarca.com/blog/guia/
+
+## Contacto
+- Correo: hola@mimarca.com
+- Sitemap: https://mimarca.com/sitemap-index.xml`;
+
+    function row(state, label, detail) {
+      const icon = state === 'ok' ? '✓' : state === 'warn' ? '!' : '✗';
+      const color = state === 'ok' ? '#2e7d32' : state === 'warn' ? '#b26a00' : '#c62828';
+      return '<li style="display:flex; gap:10px; padding:7px 0; border-bottom:1px solid #e7e3dd;">' +
+        '<span style="color:' + color + '; font-weight:700; width:16px;">' + icon + '</span>' +
+        '<span>' + label + (detail ? ' <span style="color:#8a8f98;">— ' + detail + '</span>' : '') + '</span></li>';
+    }
+
+    function validate() {
+      const txt = document.getElementById('input').value || '';
+      const h1 = /^#\s+.+/m.test(txt);
+      const summary = /^>\s+.+/m.test(txt);
+      const sections = (txt.match(/^##\s+.+/gm) || []).length;
+      const links = (txt.match(/https?:\/\/[^\s)]+/g) || []).length;
+      const contact = /(contacto|contact|mailto:|@[a-z0-9.-]+\.[a-z]{2,})/i.test(txt);
+      const sitemap = /sitemap/i.test(txt);
+
+      const checks = [
+        { req: true, ok: h1, label: 'Título H1 (<code># Nombre</code>)' },
+        { req: false, ok: summary, label: 'Resumen en blockquote (<code>&gt; …</code>)' },
+        { req: true, ok: sections >= 1, label: 'Al menos una sección (<code>## …</code>)', detail: sections + ' detectadas' },
+        { req: true, ok: links >= 1, label: 'Enlaces a páginas clave', detail: links + ' detectados' },
+        { req: false, ok: contact, label: 'Menciona un contacto' },
+        { req: false, ok: sitemap, label: 'Referencia el sitemap' },
+      ];
+
+      const reqTotal = checks.filter((c) => c.req).length;
+      const reqPass = checks.filter((c) => c.req && c.ok).length;
+      const recPass = checks.filter((c) => !c.req && c.ok).length;
+      const recTotal = checks.filter((c) => !c.req).length;
+      const score = Math.round(((reqPass + recPass) / (reqTotal + recTotal)) * 100);
+
+      let verdict, vcolor;
+      if (reqPass < reqTotal) { verdict = 'Faltan elementos obligatorios'; vcolor = '#c62828'; }
+      else if (recPass < recTotal) { verdict = 'Válido — con margen de mejora'; vcolor = '#b26a00'; }
+      else { verdict = 'llms.txt completo'; vcolor = '#2e7d32'; }
+
+      const rows = checks.map((c) => row(c.ok ? 'ok' : (c.req ? 'fail' : 'warn'), c.label + (c.req ? '' : ' <em style="color:#8a8f98;">(recomendado)</em>'), c.detail)).join('');
+
+      const box = document.getElementById('result');
+      box.hidden = false;
+      box.innerHTML =
+        '<span class="answer-box__label">Resultado</span>' +
+        '<strong style="color:' + vcolor + ';">' + verdict + ' · ' + score + '/100</strong>' +
+        '<ul style="list-style:none; padding:0; margin:14px 0 0;">' + rows + '</ul>';
+    }
+
+    document.getElementById('validate').addEventListener('click', validate);
+    document.getElementById('sample').addEventListener('click', () => {
+      document.getElementById('input').value = SAMPLE;
+      validate();
+    });
+  </script>
+</Content>
