@@ -6,6 +6,7 @@
  * Inyecta JSON-LD Article + BreadcrumbList + FAQPage vía Content → Base.
  */
 import Content from './Content.astro';
+import { getCollection } from 'astro:content';
 import { articleSchema, faqPageSchema, breadcrumbSchema } from '../lib/schema.js';
 
 export interface Props {
@@ -28,6 +29,17 @@ const fmtDate = data.pubDate.toLocaleDateString('es-MX', {
 const toc = headings.filter((h) => h.depth === 2);
 const words = String(entry.body ?? '').split(/\s+/).filter(Boolean).length;
 const readMin = Math.max(1, Math.round(words / 200));
+
+// «Sigue leyendo»: guías más recientes (excluye la actual). Densifica el
+// enlazado interno para que el crawler descubra el blog en profundidad.
+const recent = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((p) => p.id !== entry.id)
+  .sort(
+    (a, b) =>
+      (b.data.updatedDate ?? b.data.pubDate).valueOf() -
+      (a.data.updatedDate ?? a.data.pubDate).valueOf()
+  )
+  .slice(0, 6);
 
 const jsonLd = [
   articleSchema({
@@ -99,6 +111,22 @@ if (data.faqs && data.faqs.length) jsonLd.push(faqPageSchema(data.faqs));
             <p>{f.answer}</p>
           </details>
         ))}
+      </section>
+    )}
+
+    {recent.length > 0 && (
+      <section class="read-next" aria-label="Sigue leyendo" style="margin-top:48px;">
+        <h2 style="font-size:1.35rem; letter-spacing:-.01em; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--gray-soft);">Sigue leyendo</h2>
+        <div class="card-grid">
+          {recent.map((p) => (
+            <article class="card">
+              {p.data.cornerstone && <span class="tag">Guía principal</span>}
+              <h3><a href={`/blog/${p.id}/`}>{p.data.title}</a></h3>
+              <p>{p.data.description}</p>
+              <a href={`/blog/${p.id}/`}>Leer la guía →</a>
+            </article>
+          ))}
+        </div>
       </section>
     )}
 
