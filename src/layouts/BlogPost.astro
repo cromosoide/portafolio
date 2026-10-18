@@ -30,16 +30,27 @@ const toc = headings.filter((h) => h.depth === 2);
 const words = String(entry.body ?? '').split(/\s+/).filter(Boolean).length;
 const readMin = Math.max(1, Math.round(words / 200));
 
-// «Sigue leyendo»: guías más recientes (excluye la actual). Densifica el
-// enlazado interno para que el crawler descubra el blog en profundidad.
-const recent = (await getCollection('blog', ({ data }) => !data.draft))
-  .filter((p) => p.id !== entry.id)
-  .sort(
-    (a, b) =>
-      (b.data.updatedDate ?? b.data.pubDate).valueOf() -
-      (a.data.updatedDate ?? a.data.pubDate).valueOf()
-  )
-  .slice(0, 6);
+// «Sigue leyendo»: 3 hermanos del mismo cluster + 3 rotatorios de otros
+// clusters, por round-robin determinista sobre el orden de slugs. Así cada
+// guía recibe ~6 enlaces internos repartidos, en vez de concentrarlos en
+// las mismas seis «más recientes» en todas las páginas.
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) =>
+  a.id.localeCompare(b.id)
+);
+const idx = allPosts.findIndex((p) => p.id === entry.id);
+const inCluster = allPosts.filter((p) => p.data.cluster === data.cluster);
+const ci = inCluster.findIndex((p) => p.id === entry.id);
+const siblings: typeof allPosts = [];
+for (let k = 1; k < inCluster.length && siblings.length < 3; k++) {
+  siblings.push(inCluster[(ci + k) % inCluster.length]);
+}
+const outCluster = allPosts.filter((p) => p.data.cluster !== data.cluster);
+const start = (idx * 7) % outCluster.length; // stride primo → ventanas bien repartidas
+const rotating: typeof allPosts = [];
+for (let k = 0; k < outCluster.length && siblings.length + rotating.length < 6; k++) {
+  rotating.push(outCluster[(start + k) % outCluster.length]);
+}
+const readNext = [...siblings, ...rotating];
 
 const jsonLd = [
   articleSchema({
@@ -114,11 +125,11 @@ if (data.faqs && data.faqs.length) jsonLd.push(faqPageSchema(data.faqs));
       </section>
     )}
 
-    {recent.length > 0 && (
+    {readNext.length > 0 && (
       <section class="read-next" aria-label="Sigue leyendo" style="margin-top:48px;">
         <h2 style="font-size:1.35rem; letter-spacing:-.01em; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--gray-soft);">Sigue leyendo</h2>
         <div class="card-grid">
-          {recent.map((p) => (
+          {readNext.map((p) => (
             <article class="card">
               {p.data.cornerstone && <span class="tag">Guía principal</span>}
               <h3><a href={`/blog/${p.id}/`}>{p.data.title}</a></h3>

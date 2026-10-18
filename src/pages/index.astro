@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
+import { getCollection } from 'astro:content';
 import {
   personSchema,
   organizationSchema,
@@ -14,6 +15,21 @@ const jsonLd = [
   organizationSchema,
   websiteSchema,
 ];
+
+// Guías enlazadas desde el home. Se eligen a mano para cubrir la larga cola
+// del blog (las que menos enlaces internos reciben), no las más leídas.
+const HOME_GUIDES = [
+  'cuanto-cuesta-un-logo-en-mexico',
+  'cuanto-cuesta-una-pagina-web-en-mexico',
+  'branding-para-restaurante',
+  'como-hacer-un-brief-de-branding',
+  'tipos-de-marca',
+  'rediseno-de-logo',
+  'psicologia-del-color-en-branding',
+  'linkedin-para-marca-personal',
+];
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const guides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).filter(Boolean);
 ---
 <Base
   title="Santiago Gil — Branding & Marketing Strategist | CDMX"
@@ -345,6 +361,25 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- GUÍAS -->
+  <section class="guides" id="guias">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-label">Guías</span>
+        <h2>Lo que conviene saber <strong>antes de invertir en marca</strong></h2>
+      </header>
+      <div class="guides__grid reveal">
+        {guides.map((g) => (
+          <a href={`/blog/${g.id}/`} class="guides__item">
+            <span class="guides__cluster">{g.data.clusterLabel}</span>
+            <span class="guides__title">{g.data.title}</span>
+          </a>
+        ))}
+      </div>
+      <p class="guides__all reveal"><a href="/blog/">Ver las {allPosts.length} guías →</a></p>
+    </div>
+  </section>
+
   <!-- EXPERIENCIA -->
   <section class="experience" id="experiencia">
     <div class="container">
@@ -447,4 +482,35 @@ const jsonLd = [
   </footer>
 
   <script is:inline src="/scripts/main.js"></script>
+
+  <style>
+    .guides { padding: 96px 0; background: var(--white); }
+    .guides__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .guides__item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 22px;
+      border: 1px solid rgba(13, 18, 30, 0.1);
+      border-radius: var(--radius);
+      color: var(--dark);
+      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+    .guides__item:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .guides__cluster {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .guides__title { font-size: 1.05rem; font-weight: 600; line-height: 1.35; }
+    .guides__all { margin-top: 24px; }
+    .guides__all a { color: var(--dark); font-weight: 600; border-bottom: 2px solid var(--accent); }
+  </style>
 </Base>
